@@ -23,5 +23,23 @@
         android:textSize="40dp"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/username"
+        android:inputType="text"
+
+        />
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/usermail"
+        android:inputType="text"
+
+        />
 
 </LinearLayout>

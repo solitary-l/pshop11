@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (match) {
                         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, Main2Activity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", name);
                         startActivity(intent);
                         finish();//销毁此Activity
                     } else {

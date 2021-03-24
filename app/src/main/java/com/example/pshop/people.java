@@ -28,9 +28,17 @@ public class people extends Fragment{
         View view = inflater.inflate(R.layout.activity_people, container, false);
         fragmentTextView = (TextView) view.findViewById(R.id.fragment_text);
         Button people = (Button) view.findViewById(R.id.center);
+        Button out = (Button)view.findViewById(R.id.out);
+        out.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
         people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getActivity(), center.class));
             }
         });
