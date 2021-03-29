@@ -1,96 +1,150 @@
 package com.example.pshop;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-public class Main2Activity extends AppCompatActivity implements View.OnClickListener{
+import com.example.pshop.BaseFragment;
+import com.example.pshop.home;
+import com.example.pshop.car;
+import com.example.pshop.people;
+import java.util.ArrayList;
 
-    LinearLayout homeLinear;
-    LinearLayout CarLinear;
-    LinearLayout userLinear;
+public class Main2Activity extends FragmentActivity {
 
-    home fragmentHome;
-    car fragmentCar;
-    people fragmentUser;
-
-    private FragmentManager mfragmentManger;
+    private RadioGroup rg_main;
+    private ArrayList<BaseFragment> fragments;
+    private int position = 0;
+    private BaseFragment tempFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //顶部任务栏改成透明
+//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window window = getWindow();
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+//                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(Color.TRANSPARENT);
+//            window.setNavigationBarColor(Color.TRANSPARENT);
+//        }
+        //解决软键盘弹出时底部布局上移
+        getWindow().setSoftInputMode
+                (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN |
+                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         setContentView(R.layout.activity_main2);
-        homeLinear= (LinearLayout) findViewById(R.id.linear_home);
-        CarLinear= (LinearLayout) findViewById(R.id.linear_Car);
-        userLinear= (LinearLayout) findViewById(R.id.linear_User);
-        homeLinear.setOnClickListener(this);
-        CarLinear.setOnClickListener(this);
-        userLinear.setOnClickListener(this);
-        mfragmentManger = getSupportFragmentManager();
-        homeLinear.performClick();
+
+        rg_main = findViewById(R.id.rg_main);
+        initListener();
+        initFragment();
+        rg_main.check(R.id.rb_home);
     }
 
-    @Override
-    public void onClick(View view) {
-        FragmentTransaction fragmentTransaction = mfragmentManger.beginTransaction();//只能是局部变量，不能为全局变量，否则不能重复commit
-        //FragmentTransaction只能使用一次
-        hideAllFragment(fragmentTransaction);
-        switch (view.getId()){
-            case R.id.linear_home:
-                setAllFalse();
-                homeLinear.setSelected(true);
-                if (fragmentHome==null){
-                    fragmentHome=new home("Home");
-                    fragmentTransaction.add(R.id.fragment_frame,fragmentHome);
-                }else{
-                    fragmentTransaction.show(fragmentHome);
-                }
-                break;
-            case R.id.linear_Car:
-                setAllFalse();
-                CarLinear.setSelected(true);
-                if(fragmentCar==null){
-                    fragmentCar=new car("ShoppingCar");
-                    fragmentTransaction.add(R.id.fragment_frame,fragmentCar);
-                }else {
-                    fragmentTransaction.show(fragmentCar);
-                }
-                break;
-            case R.id.linear_User:
-                setAllFalse();
-                userLinear.setSelected(true);
-                if(fragmentUser==null){
-                    fragmentUser=new people("User");
-                    fragmentTransaction.add(R.id.fragment_frame,fragmentUser);
-                }else {
-                    fragmentTransaction.show(fragmentUser);
-                }
-                break;
-        }
-        fragmentTransaction.commit();//记得必须要commit,否则没有效果
-
+    private void initFragment() {
+        fragments = new ArrayList<>();
+        fragments.add(new home());
+        fragments.add(new car());
+        fragments.add(new people());
     }
 
-    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
-        if(fragmentHome!=null){
-            fragmentTransaction.hide(fragmentHome);
-        }
-        if(fragmentCar!=null){
-            fragmentTransaction.hide(fragmentCar);
-        }
-        if(fragmentUser!=null){
-            fragmentTransaction.hide(fragmentUser);
-        }
+    //设置监听
+    private void initListener() {
+        rg_main.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rb_home:
+                    position = 0;
+                    break;
+                case R.id.rb_cart:
+                    fragments.clear();
+                    fragments.add(new home());
+                    fragments.add(new car());
+                    fragments.add(new people());
+                    position = 1;
+                    break;
+                case R.id.rb_user:
+                    position = 2;
+                    break;
+                default:
+                    position = 0;
+                    break;
+            }
+            BaseFragment baseFragment = getFragment(position);
+            switchFragment(tempFragment, baseFragment);
+        });
     }
 
-    private void setAllFalse() {
-        homeLinear.setSelected(false);
-        CarLinear.setSelected(false);
-        userLinear.setSelected(false);
+    private BaseFragment getFragment(int position) {
+        if (fragments != null && fragments.size() > 0) {
+            BaseFragment baseFragment = fragments.get(position);
+            return baseFragment;
+        }
+        return null;
+    }
+
+    //    //切换Fragment
+//    private void switchFragment(Fragment fromFragment, BaseFragment nextFragment){
+//
+//        FragmentManager manager = getSupportFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//
+//        if (tempFragment != nextFragment){
+//            tempFragment = nextFragment;
+//            if (nextFragment != null){
+//
+//
+//                //判断nextFragment是否有添加
+//                if (!nextFragment.isAdded()){
+//                    //隐藏当前的fragment
+//                    transaction.hide(fromFragment);
+//                }
+//                transaction.add(R.id.frame1,nextFragment).commit();
+//            }else {
+//                if (fromFragment != null){
+//                    transaction.hide(fromFragment);
+//                }
+//                transaction.add(nextFragment).commit();
+//            }
+//        }
+//
+//    }
+    private void switchFragment(Fragment fromFragment, BaseFragment nextFragment) {
+        if (tempFragment != nextFragment) {
+            tempFragment = nextFragment;
+            if (nextFragment != null) {
+                //开启事务
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                //判断nextFragment是否有添加
+                if (!nextFragment.isAdded()) {
+                    //隐藏当前的fragment
+                    if (fromFragment != null) {
+                        transaction.hide(fromFragment);
+                    }
+                    transaction.add(R.id.frame1, nextFragment).commit();
+                } else {
+                    if (fromFragment != null) {
+
+                        transaction.hide(fromFragment);
+                    }
+                    transaction.show(nextFragment).commit();
+                }
+            }
+        }
     }
 }

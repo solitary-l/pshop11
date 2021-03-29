@@ -3,6 +3,7 @@ package com.example.pshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int MOOD_PRIVATE =0 ;
     private MyDatabaseHelper mDBOpenHelper;
     private TextView mTvLoginactivityRegister;
     private EditText mEtLoginactivityUsername;
@@ -67,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         User user = data.get(i);
                         if (name.equals(user.getName()) && password.equals(user.getPassword())) {
                             match = true;
+                            //获取sp对象， 参数名"data"表示文件名,MOOD_PRIVATE表示文件操作模式
+                            SharedPreferences sp = getSharedPreferences("data",MOOD_PRIVATE);
+                            SharedPreferences .Editor editor = sp.edit(); 		//获取编辑器
+                            editor.putString("name",name);						//存入String类型数据
+                            editor.commit();									//提交修改
                             break;
                         } else {
                             match = false;

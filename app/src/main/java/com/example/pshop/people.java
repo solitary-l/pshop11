@@ -13,14 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class people extends Fragment{
+public class people extends BaseFragment{
 
     private String fragmentText;
     private TextView fragmentTextView;
 
-    public people(String fragmentText) {
-        this.fragmentText = fragmentText;
+
+
+    public people() {
+
     }
+
 
     @Nullable
     @Override
@@ -43,5 +46,10 @@ public class people extends Fragment{
             }
         });
         return view;
+    }
+
+    @Override
+    public View initView() {
+        return null;
     }
 }

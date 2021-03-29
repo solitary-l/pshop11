@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical">
 
     <Button
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="60dp"
-        android:id="@+id/username"
+        android:id="@+id/name"
         android:inputType="text"
 
         />
@@ -37,9 +37,53 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="60dp"
-        android:id="@+id/usermail"
+        android:id="@+id/mail"
         android:inputType="text"
 
         />
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/mail1"
+        android:inputType="text"
+
+        />
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/mail2"
+        android:inputType="text"
+
+        />
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/white"
+        android:inputType="text"
+
+        />
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:id="@+id/white1"
+        android:inputType="text"
+
+        />
+
+    <Button
+        android:id="@+id/change"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:text="修改信息"
+        android:onClick="onClick"/>
 
 </LinearLayout>

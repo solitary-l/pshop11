@@ -5,10 +5,11 @@ public class User {
         private String password;        //密码
         private String mail;            //邮箱
 
-        public User(String name, String password) {
+        public User(String name, String mail,String password) {
             this.name = name;
+            this.mail = mail;
             this.password = password;
-            this.mail=mail;
+
 
         }
 
@@ -34,9 +35,8 @@ public class User {
         public String toString() {
             return "User{" +
                     "name='" + name + '\'' +
-                    ", password='" + password + '\'' +
                     ", mail='"+mail +'\''+
-
+                    ", password='" + password + '\'' +
                     '}';
         }
 }
