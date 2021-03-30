@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/type_RL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/frameLayout_type">
+
+        <TextView
+            android:id="@+id/tv_jd_commr1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="常用分类"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <GridView
+            android:id="@+id/gridview_jd_r1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:numColumns="3"
+            android:layout_below="@+id/tv_jd_commr1">
+        </GridView>
+        <ListView
+            android:id="@+id/type_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/rg_type"
+            android:layout_below="@id/gridview_jd_r1"/>
+    </RelativeLayout>
+</LinearLayout>
