@@ -56,7 +56,7 @@ public class car extends BaseFragment {
         //全选单击事件
         cart_check_all.setOnClickListener(v -> {
             if (flag){
-                dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+                dbOpenHelper = new CartDBOpenHelper(mContext);
                 ContentValues values = new ContentValues();
                 values.put("g_check", "true");
                 //参数:表名，修改后的值，where条件，以及约束，如果不指定三四两个参数，会更改所有行
@@ -68,7 +68,7 @@ public class car extends BaseFragment {
                 dbOpenHelper.close();
                 flag = false;
             }else {
-                dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+                dbOpenHelper = new CartDBOpenHelper(mContext);
                 ContentValues values = new ContentValues();
                 values.put("g_check", "false");
                 //参数:表名，修改后的值，where条件，以及约束，如果不指定三四两个参数，会更改所有行
@@ -136,7 +136,6 @@ public class car extends BaseFragment {
                 }
                 Intent intent = new Intent();
                 intent.putExtra("money",money);
-                intent.setClass(mContext,DingdanActivity.class);
                 startActivity(intent);
             }
             /**
@@ -151,7 +150,7 @@ public class car extends BaseFragment {
 
     //删除购物车中指定商品
     private void delCartGoods(int g_id){
-        dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         //参数依次是表名，以及where条件与约束
         dbOpenHelper.getWritableDatabase().delete(
                 "cart",
@@ -162,7 +161,7 @@ public class car extends BaseFragment {
 
     //查询数据库中所有商品
     private ArrayList<CartGoods> listAllCartGoods(){
-        dbOpenHelper = new CartDBOpenHelper(mContext,1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         Cursor cursor = dbOpenHelper.getReadableDatabase().query(
                 "cart",null,null,null,null,null,null
         );

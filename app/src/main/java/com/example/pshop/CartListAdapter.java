@@ -114,7 +114,7 @@ public class CartListAdapter extends BaseAdapter {
 
     //存在返回商品数量
     private int getGoodsNum(int g_id) {
-        dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         //表名，列名，where约束条件，where中占位符提供具体的值，指定group by的列，进一步约束
         Cursor cursor = dbOpenHelper.getReadableDatabase().query(
                 "cart",
@@ -133,7 +133,7 @@ public class CartListAdapter extends BaseAdapter {
 
     //修改商品数量
     private void uptGoodsNum(int g_id, int g_num) {
-        dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         ContentValues values = new ContentValues();
         values.put("g_num", g_num);
         //参数:表名，修改后的值，where条件，以及约束，如果不指定三四两个参数，会更改所有行
@@ -147,7 +147,7 @@ public class CartListAdapter extends BaseAdapter {
 
     //修改商品是否被选中
     private void uptGoodsChecked(int g_id, String isChecked){
-        dbOpenHelper = new CartDBOpenHelper(mContext, 1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         ContentValues values = new ContentValues();
         values.put("g_check", isChecked);
         //参数:表名，修改后的值，where条件，以及约束，如果不指定三四两个参数，会更改所有行

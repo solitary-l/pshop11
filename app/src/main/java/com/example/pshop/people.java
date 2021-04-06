@@ -29,7 +29,7 @@ public class people extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_people, container, false);
-        fragmentTextView = (TextView) view.findViewById(R.id.fragment_text);
+
         Button people = (Button) view.findViewById(R.id.center);
         Button out = (Button)view.findViewById(R.id.out);
         out.setOnClickListener(new View.OnClickListener(){

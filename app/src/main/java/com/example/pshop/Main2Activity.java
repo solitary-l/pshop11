@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class Main2Activity extends FragmentActivity {
     private ArrayList<BaseFragment> fragments;
     private int position = 0;
     private BaseFragment tempFragment;
+    private Activity mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,9 @@ public class Main2Activity extends FragmentActivity {
         fragments.add(new people());
     }
 
+    public void onAttach(Activity activity){
+        this.mContext = activity;
+    }
     //设置监听
     private void initListener() {
         rg_main.setOnCheckedChangeListener((group, checkedId) -> {

@@ -6,10 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+
 public class CartDBOpenHelper extends SQLiteOpenHelper {
-    public CartDBOpenHelper(@Nullable Context context, int version) {
-        super(context, "jdshop.db", null, version);
+
+    public CartDBOpenHelper( Context context) {
+        super(context, "jdshop.db", null, 1);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

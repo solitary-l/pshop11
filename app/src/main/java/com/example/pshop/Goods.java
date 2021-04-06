@@ -8,15 +8,9 @@ public class Goods {
     private double g_price;
     private int g_sales;
     private String g_shop;
+    private Double g_num;
+    private String g_check;
 
-    public Goods() {
-    }
-
-    public Goods(int g_photo, String g_name, double g_price) {
-        this.g_photo = g_photo;
-        this.g_name = g_name;
-        this.g_price = g_price;
-    }
 
     public Goods(int g_photo, String g_name, double g_price, int g_sales, String g_shop) {
         this.g_photo = g_photo;
@@ -34,6 +28,16 @@ public class Goods {
         this.g_price = g_price;
         this.g_sales = g_sales;
         this.g_shop = g_shop;
+    }
+
+    public Goods(int g_photo, String g_name, double g_price, Double g_num, String g_type, String g_check) {
+        this.g_photo = g_photo;
+        this.g_name = g_name;
+        this.g_type = g_type;
+        this.g_price = g_price;
+        this.g_check = g_check;
+        this.g_num = g_num;
+
     }
 
     public int getG_photo() {

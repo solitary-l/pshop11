@@ -21,6 +21,8 @@ public class GoodsListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private ArrayList<Goods> goodsList;
     private CartDBOpenHelper dbOpenHelper;
+    private homeDBOpenHelper homeDBOpenHelper;
+
 
     public GoodsListAdapter(Context mContext, ArrayList<Goods> goodsList) {
         this.mContext = mContext;
@@ -54,6 +56,8 @@ public class GoodsListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
+
+
         if (convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.goods_item, parent, false);
             holder = new ViewHolder();
@@ -79,7 +83,18 @@ public class GoodsListAdapter extends BaseAdapter {
         holder.goods_buy.setOnClickListener(v ->{
             long i = -1;
             //创建数据库
-            dbOpenHelper = new CartDBOpenHelper(mContext,1);
+            dbOpenHelper = new CartDBOpenHelper(mContext);
+            homeDBOpenHelper=new homeDBOpenHelper(mContext);
+            ContentValues values1 = new ContentValues();
+            //cart(g_id,g_photo,g_name,g_type,g_price,g_num,g_check)
+            values1.put("home_id",String.valueOf(goodsList.get(position).getG_id()));
+            values1.put("h_photo",String.valueOf(goodsList.get(position).getG_photo()));
+            values1.put("h_name",goodsList.get(position).getG_name());
+            values1.put("h_type",goodsList.get(position).getG_type());
+            values1.put("h_price",String.valueOf(goodsList.get(position).getG_price()));
+            values1.put("h_num","1");
+            values1.put("h_check","false");
+            homeDBOpenHelper.getWritableDatabase().insert("home", null, values1);
             //商品数量
             int goods_num = isExist(goodsList.get(position).getG_id());
             if (goods_num == 0){
@@ -95,6 +110,7 @@ public class GoodsListAdapter extends BaseAdapter {
                 values.put("g_num","1");
                 values.put("g_check","false");
                 i = dbOpenHelper.getWritableDatabase().insert("cart", null, values);
+
             }else {
                 //如果数据库中存在当前商品
                 //Toast.makeText(mContext,"当前数据库存在改商品！！！", Toast.LENGTH_SHORT).show();
@@ -118,7 +134,7 @@ public class GoodsListAdapter extends BaseAdapter {
 
     //判断商品id是否存在,存在返回商品数量，不存在返回0
     private int isExist(int g_id){
-        dbOpenHelper = new CartDBOpenHelper(mContext,1);
+        dbOpenHelper = new CartDBOpenHelper(mContext);
         //表名，列名，where约束条件，where中占位符提供具体的值，指定group by的列，进一步约束
         Cursor cursor = dbOpenHelper.getReadableDatabase().query(
                 "cart",

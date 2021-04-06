@@ -67,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/cart_check_all"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:textSize="24sp"
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:text="合计:￥00.00"/>
         <TextView
